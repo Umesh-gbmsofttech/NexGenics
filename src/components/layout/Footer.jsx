@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom'
 
 const quickLinks = ['Privacy Policy', 'Terms Of Service', 'Credits', 'FAQ']
 const services = [
-  'Software Development',
-  'Web Development',
-  'Mobile Apps',
-  'Consulting',
-  'Support',
+  'Custom Software Development',
+  'Dynamic Website Development',
+  'Mobile App Development',
+  'SaaS Product Development',
+  'Maintenance & Support',
 ]
 
 export default function Footer() {
