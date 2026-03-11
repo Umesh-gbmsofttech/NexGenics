@@ -1,42 +1,56 @@
-import Lottie from 'lottie-react'
-import AnimatedSection from '../components/ui/AnimatedSection'
-import GlassCard from '../components/ui/GlassCard'
-import SectionTitle from '../components/ui/SectionTitle'
-import handshakeAnimation from '../animations/Handshake Loop.json'
+import React from 'react';
+import { motion } from 'framer-motion';
+import ContactForm from '../components/sections/ContactForm';
+import birdIcon from '../assets/bird-icon.png';
+import Testimonials from '../components/sections/Testimonials';
 
-export default function Contact() {
+export default function ContactPage() {
+  const bubblePositions = [
+    { bottom: '330px', right: '-100px', size: 'w-24 h-16' },
+    { bottom: '250px', right: '-250px', size: 'w-32 h-20' },
+    { bottom: '200px', right: '-220px', size: 'w-28 h-18' },
+    { bottom: '150px', right: '-180px', size: 'w-24 h-16' },
+    { bottom: '120px', right: '-60px', size: 'w-16 h-12' },
+    { bottom: '60px', right: '-130px', size: 'w-20 h-14' },
+    { bottom: '20px', right: '-50px', size: 'w-12 h-8' }
+  ];
+
   return (
-    <AnimatedSection className="section-space">
-      <div className="container-shell grid gap-10 lg:grid-cols-2">
-        <div>
-          <SectionTitle
-            eyebrow="Contact"
-            title="Tell us what you are building"
-            subtitle="Connect with our engineering team and receive a tailored plan for your product scope."
-          />
-          <div className="mt-6 space-y-2 text-secondary/75">
-            <p>+91 87660 78570</p>
-            <p>Wakad, Pune, Maharashtra, India</p>
-            <p>gbmsofttech@gmail.com</p>
-          </div>
-          <div className="mt-6 max-w-md rounded-3xl bg-white p-3 shadow-soft">
-            <Lottie animationData={handshakeAnimation} loop />
-          </div>
-        </div>
+    <div className="relative min-h-screen py-20 bg-white overflow-hidden">
+      <div className="relative max-w-4xl mx-auto min-h-[600px] px-4">
+        
+        <motion.img 
+          src={birdIcon} 
+          alt="Bird"
+          className="absolute -top-20 -left-14 w-32 h-32 hidden md:block z-10 cursor-pointer"
+          animate={{ y: [0, -20, 0], rotate: [0, -10, 0] }}
+          whileHover={{ scale: 1.2, rotate: 10 }}
+          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        />
 
-        <GlassCard>
-          <form className="space-y-4">
-            <input type="text" placeholder="Full Name" className="w-full rounded-2xl border border-secondary/15 px-4 py-3 text-sm outline-none ring-primary/25 focus:ring" />
-            <input type="tel" placeholder="Phone" className="w-full rounded-2xl border border-secondary/15 px-4 py-3 text-sm outline-none ring-primary/25 focus:ring" />
-            <input type="email" placeholder="Email" className="w-full rounded-2xl border border-secondary/15 px-4 py-3 text-sm outline-none ring-primary/25 focus:ring" />
-            <input type="text" placeholder="Service Description" className="w-full rounded-2xl border border-secondary/15 px-4 py-3 text-sm outline-none ring-primary/25 focus:ring" />
-            <textarea placeholder="Message" rows={4} className="w-full rounded-2xl border border-secondary/15 px-4 py-3 text-sm outline-none ring-primary/25 focus:ring" />
-            <button type="button" className="btn-primary w-full">
-              GET A FREE QUOTE
-            </button>
-          </form>
-        </GlassCard>
+        {bubblePositions.map((pos, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0 }}
+            whileInView={{ opacity: 0.8, scale: 1 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            animate={{ y: [0, -15, 0] }}
+            transition={{ 
+              opacity: { delay: i * 0.1, duration: 0.5 },
+              scale: { delay: i * 0.1, duration: 0.5, type: "spring" },
+              y: { repeat: Infinity, duration: 4, delay: i * 0.2, ease: "easeInOut" }
+            }}
+            className={`absolute ${pos.size} bg-blue-500 rounded-lg shadow-xl hidden md:block`}
+            style={{ bottom: pos.bottom, right: pos.right }}
+          />
+        ))}
+        
+        <div className="relative z-20">
+          <ContactForm />
+        </div>
       </div>
-    </AnimatedSection>
-  )
+      <Testimonials/>
+    </div>
+  );
 }

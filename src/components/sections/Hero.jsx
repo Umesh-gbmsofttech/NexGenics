@@ -1,45 +1,62 @@
-import { motion } from 'framer-motion'
-import Lottie from 'lottie-react'
-import heroAnimation from '../../animations/3D Digital Marketing.json'
-import GlassCard from '../ui/GlassCard'
+import { motion, useMotionValue, useMotionTemplate, useSpring } from 'framer-motion';
 
 export default function Hero() {
-  return (
-    <section className="relative flex min-h-[calc(100vh-7.5rem)] items-center overflow-hidden bg-brand-gradient pb-16 pt-10 text-white md:pb-24">
-      <div className="absolute -left-20 top-24 h-64 w-64 rounded-full bg-cyan-300/30 blur-3xl" />
-      <div className="absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-indigo-300/30 blur-3xl" />
+  // 1. Mouse coordinate tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-      <div className="container-shell relative z-10 grid items-center gap-10 lg:grid-cols-2">
-        <div>
-          <p className="inline-block rounded-full border border-white/40 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]">
-            Build • Innovate • Scale
-          </p>
-          <h1 className="mt-5 font-display text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
-            Transform Your Digital Vision Into Reality
+  // 2. Smooth the movement for a "premium" feel
+  const springConfig = { damping: 30, stiffness: 100 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  // 3. Create the CSS variable for the gradient
+  const background = useMotionTemplate`radial-gradient(600px circle at ${smoothX}px ${smoothY}px, rgba(30, 58, 138, 0.42), transparent 80%)`;
+
+  function handleMouseMove(e) {
+    // Get mouse position relative to the element
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  }
+
+  return (
+    <section 
+      onMouseMove={handleMouseMove}
+      className="relative w-full bg-[#fcfdff] text-slate-900 pt-32 pb-32 overflow-hidden flex items-center justify-center"
+    >
+      {/* The Mouse-Tracking Spotlight */}
+      <motion.div 
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{ background }}
+      />
+      
+      <div className="container mx-auto px-6 relative z-10 text-center">
+        {/* Your existing content goes here */}
+        <div className="max-w-4xl mx-auto">
+          {/* Badge */}
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-100 bg-white/50 backdrop-blur-md text-[11px] font-bold uppercase tracking-[0.2em] text-blue-600 shadow-sm mb-10">
+            <span className="h-1.5 w-1.5 bg-blue-600 rounded-full animate-pulse" />
+            Engineering Digital Excellence
+          </span>
+
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-slate-950 leading-[1.1] mb-8">
+            Engineering software for <br />
+            <span className="text-blue-600 italic font-serif font-medium">global scale.</span>
           </h1>
-          <p className="mt-5 max-w-xl text-base text-white/85 sm:text-lg">
-            Custom Software • Web Applications • Mobile Apps • Enterprise Solutions
+
+          <p className="text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed mb-12 font-light">
+            NexGenics builds resilient digital infrastructure and high-velocity 
+            platforms designed for the next generation of enterprise growth.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href="tel:+918766078570" className="btn-primary border border-white/25">
-              Get Free Consultation
-            </a>
-            <a href="tel:+918766078570" className="btn-secondary bg-white/90">
-              Call +91 87660 78570
-            </a>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button className="px-10 py-4 bg-[#f27a7a] hover:bg-[#e06969] text-white font-bold rounded-xl transition-all shadow-lg active:scale-95">
+              Get Started
+            </button>
           </div>
         </div>
-
-        <motion.div
-          animate={{ y: [0, -12, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="mx-auto w-full max-w-xl"
-        >
-          <GlassCard className="bg-white/15 p-4">
-            <Lottie animationData={heroAnimation} loop />
-          </GlassCard>
-        </motion.div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,59 +1,21 @@
-﻿import Lottie from 'lottie-react'
-import AnimatedSection from '../components/ui/AnimatedSection'
-import GlassCard from '../components/ui/GlassCard'
-import SectionTitle from '../components/ui/SectionTitle'
-import servicesAnimation from '../animations/website.json'
+﻿import React from 'react';
+import { motion } from 'framer-motion'; // Ensure this is present
+import Lottie from 'lottie-react';
+import AnimatedSection from '../components/ui/AnimatedSection';
+import GlassCard from '../components/ui/GlassCard';
+import SectionTitle from '../components/ui/SectionTitle';
+import servicesAnimation from '../animations/website.json';
 
 const detailedServices = [
-  {
-    title: 'Custom Software Development',
-    points: ['Requirement analysis', 'Solution architecture', 'Scalable codebase delivery'],
-  },
-  {
-    title: 'Dynamic Web Application Development',
-    points: ['Admin panels', 'Customer dashboards', 'SEO-ready frontend architecture'],
-  },
-  {
-    title: 'Mobile App Development',
-    points: ['Android and iOS apps', 'API-connected mobile backend', 'App performance optimization'],
-  },
-  {
-    title: 'SaaS Product Engineering',
-    points: ['Multi-tenant architecture', 'Subscription-ready modules', 'Analytics and reporting'],
-  },
-  {
-    title: 'Enterprise Software (ERP/CRM)',
-    points: ['Workflow automation', 'Role-based access', 'Business process customization'],
-  },
-  {
-    title: 'Maintenance and Support',
-    points: ['Bug fixing and updates', 'Performance tuning', 'Long-term product enhancement'],
-  },
-]
+  { title: 'Custom Software Development', points: ['Requirement analysis', 'Solution architecture', 'Scalable codebase delivery'] },
+  { title: 'Dynamic Web Application Development', points: ['Admin panels', 'Customer dashboards', 'SEO-ready frontend architecture'] },
+  { title: 'Mobile App Development', points: ['Android and iOS apps', 'API-connected mobile backend', 'App performance optimization'] },
+  { title: 'SaaS Product Engineering', points: ['Multi-tenant architecture', 'Subscription-ready modules', 'Analytics and reporting'] },
+  { title: 'Enterprise Software (ERP/CRM)', points: ['Workflow automation', 'Role-based access', 'Business process customization'] },
+  { title: 'Maintenance and Support', points: ['Bug fixing and updates', 'Performance tuning', 'Long-term product enhancement'] },
+];
 
-const solutions = [
-  'Business websites and dynamic portals',
-  'E-commerce web applications',
-  'Custom dashboard and admin systems',
-  'Booking and management software',
-  'Inventory and billing software',
-  'Internal workflow automation tools',
-]
-
-const techStack = [
-  'React',
-  'Node.js',
-  'TypeScript',
-  'JavaScript',
-  'Java',
-  'Python',
-  'PostgreSQL',
-  'MongoDB',
-  'REST APIs',
-  'Firebase',
-  'AWS',
-  'Docker',
-]
+const techStack = ['React', 'Node.js', 'TypeScript', 'JavaScript', 'Java', 'Python', 'PostgreSQL', 'MongoDB', 'REST APIs', 'Firebase', 'AWS', 'Docker'];
 
 const process = [
   'Discovery and requirement workshop',
@@ -61,115 +23,91 @@ const process = [
   'UI development and backend engineering',
   'Testing, QA, and security hardening',
   'Deployment, support, and iteration',
-]
-
-const engagementModels = [
-  {
-    title: 'Fixed Scope Project',
-    description: 'Best for clearly defined requirements with timeline and milestone-based execution.',
-  },
-  {
-    title: 'Dedicated Development Team',
-    description: 'A managed team extension model for long-term product development.',
-  },
-  {
-    title: 'Hourly / On-Demand',
-    description: 'Flexible engineering support for feature updates, bug fixes, and enhancements.',
-  },
-]
+];
 
 export default function Services() {
   return (
-    <div className="section-space space-y-16">
+    <div className="section-space space-y-24 bg-slate-50/50">
+      
+      {/* Hero Section */}
       <AnimatedSection>
-        <div className="container-shell grid gap-10 lg:grid-cols-2">
-          <div>
+        <div className="container-shell grid items-center gap-16 lg:grid-cols-2">
+          <div className="space-y-6">
             <SectionTitle
-              eyebrow="Services"
+              eyebrow="Our Expertise"
               title="Software development services built for real business outcomes"
-              subtitle="NexGenics focuses only on software engineering services: websites, mobile apps, custom business software, and scalable digital platforms."
+              subtitle="We bridge the gap between complex business requirements and scalable digital execution."
             />
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-2 gap-4">
               {detailedServices.slice(0, 4).map((service) => (
-                <GlassCard key={service.title} className="text-sm font-semibold">
-                  {service.title}
-                </GlassCard>
+                <div key={service.title} className="rounded-xl border border-blue-100 bg-white p-4 shadow-sm">
+                  <p className="text-sm font-bold text-blue-900">{service.title}</p>
+                </div>
               ))}
             </div>
           </div>
-          <div className="rounded-3xl bg-white p-3 shadow-soft">
+          <div className="relative rounded-3xl bg-white p-8 shadow-2xl shadow-blue-100/50 border border-slate-100">
             <Lottie animationData={servicesAnimation} loop />
           </div>
         </div>
       </AnimatedSection>
 
+      {/* Capabilities Section */}
       <AnimatedSection>
         <div className="container-shell">
-          <SectionTitle eyebrow="Detailed Services" title="Comprehensive engineering capabilities" />
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mb-12 text-center">
+            <h2 className="text-4xl font-extrabold text-slate-900">Comprehensive Engineering</h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {detailedServices.map((service) => (
-              <GlassCard key={service.title}>
-                <h3 className="font-display text-lg font-bold">{service.title}</h3>
-                <ul className="mt-3 space-y-2 text-sm text-secondary/70">
+              <motion.div 
+                whileHover={{ y: -5 }}
+                key={service.title} 
+                className="group rounded-2xl bg-white p-8 shadow-sm border border-slate-200 transition-all hover:border-blue-500 hover:shadow-lg"
+              >
+                <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{service.title}</h3>
+                <ul className="mt-4 space-y-3 text-slate-600">
                   {service.points.map((point) => (
-                    <li key={point}>- {point}</li>
+                    <li key={point} className="flex items-center gap-2 text-sm">
+                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                      {point}
+                    </li>
                   ))}
                 </ul>
-              </GlassCard>
+              </motion.div>
             ))}
           </div>
         </div>
       </AnimatedSection>
 
+      {/* Expertise & Process Section */}
       <AnimatedSection>
-        <div className="container-shell grid gap-8 lg:grid-cols-2">
-          <GlassCard>
-            <h3 className="font-display text-2xl font-bold">Software Solutions We Build</h3>
-            <div className="mt-4 grid gap-2 text-sm text-secondary/75 sm:grid-cols-2">
-              {solutions.map((item) => (
-                <p key={item}>- {item}</p>
-              ))}
-            </div>
-          </GlassCard>
-          <GlassCard>
-            <h3 className="font-display text-2xl font-bold">Technology Expertise</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
+        <div className="container-shell grid gap-12 lg:grid-cols-2">
+          <div className="space-y-8">
+            <h3 className="text-2xl font-bold">Technology Stack</h3>
+            <div className="flex flex-wrap gap-3">
               {techStack.map((tech) => (
-                <span key={tech} className="rounded-full border border-secondary/15 bg-white px-3 py-1 text-xs font-semibold">
+                <span key={tech} className="rounded-lg bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700">
                   {tech}
                 </span>
               ))}
             </div>
-          </GlassCard>
-        </div>
-      </AnimatedSection>
-
-      <AnimatedSection>
-        <div className="container-shell grid gap-8 lg:grid-cols-2">
-          <GlassCard>
-            <h3 className="font-display text-2xl font-bold">Our Development Process</h3>
-            <ol className="mt-4 space-y-2 text-sm text-secondary/75">
+          </div>
+          <div className="space-y-8">
+            <h3 className="text-2xl font-bold">Development Roadmap</h3>
+            <div className="space-y-4">
               {process.map((step, index) => (
-                <li key={step}>
-                  {index + 1}. {step}
-                </li>
-              ))}
-            </ol>
-          </GlassCard>
-          <GlassCard>
-            <h3 className="font-display text-2xl font-bold">Engagement Models</h3>
-            <div className="mt-4 space-y-4">
-              {engagementModels.map((model) => (
-                <div key={model.title} className="rounded-2xl border border-secondary/10 bg-white/75 p-4">
-                  <p className="font-semibold">{model.title}</p>
-                  <p className="mt-1 text-sm text-secondary/70">{model.description}</p>
+                <div key={step} className="flex gap-4 items-start">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white font-bold text-sm shrink-0">
+                    {index + 1}
+                  </div>
+                  <p className="text-slate-700 pt-1">{step}</p>
                 </div>
               ))}
             </div>
-          </GlassCard>
+          </div>
         </div>
       </AnimatedSection>
     </div>
   )
 }
-
