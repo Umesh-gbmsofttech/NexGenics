@@ -1,116 +1,171 @@
-import Lottie from 'lottie-react'
-import { motion } from 'framer-motion'
-import AnimatedSection from '../ui/AnimatedSection'
-import analysisAnimation from '../../animations/Isometric data analysis.json'
+import React from 'react';
+import { motion } from 'framer-motion';
 
-const fadeIn = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.8 }
-};
+// 1. IMPORT YOUR ASSETS
+import bulbGif from '../../assets/bulb-animation.gif'; 
+import moneyGif from '../../assets/money-animation.gif'; 
+import rocketGif from '../../assets/rocket-animation.gif'; 
+import imgLarge from '../../assets/image_large.jpg'; 
+import imgSmall from '../../assets/image_small.jpg';
 
 export default function AboutPreview() {
   return (
-    <AnimatedSection className="relative py-24 lg:py-40 bg-white overflow-hidden">
-      {/* Background Architectural Elements */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-slate-50/50 rounded-full blur-[120px] -z-10 translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+    <section className="relative py-24 bg-white overflow-hidden">
+      <div className="container mx-auto px-8 md:px-20">
+        
+        {/* Top Feature Icons - Horizontal Layout with Large GIFs */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-32">
+          <FeatureItem 
+            icon={
+              <img 
+                src={bulbGif} 
+                alt="Growth" 
+                className="w-20 h-20 md:w-24 md:h-24 object-contain transition-transform duration-500 group-hover:scale-110" 
+              />
+            }
+            title="Grow your business"
+            desc="We believe in challenges and so we have made challenges."
+          />
           
-          {/* 01. CONTENT COLUMN (5 Cols) */}
-          <div className="lg:col-span-5 space-y-12">
-            <motion.div {...fadeIn} className="space-y-6">
-              <div className="inline-flex items-center gap-3">
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-600">01 — The Standard</span>
-              </div>
-              
-              <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter text-slate-950 leading-[0.95]">
-                Engineering <br />
-                <span className="italic font-serif text-blue-700 font-medium">resilience.</span>
-              </h2>
-              
-              <p className="text-xl text-slate-500 font-light leading-relaxed">
-                NexGenics isn't just a development house. We are an architectural partner for enterprises requiring 
-                <span className="text-slate-900 font-medium"> military-grade security </span> and 
-                <span className="text-slate-900 font-medium"> absolute scalability.</span>
-              </p>
-            </motion.div>
+          <FeatureItem 
+            icon={
+              <img 
+                src={moneyGif} 
+                alt="Savings" 
+                className="w-20 h-20 md:w-24 md:h-24 object-contain transition-transform duration-500 group-hover:scale-110" 
+              />
+            }
+            title="Cost savings ideas"
+            desc="We also help our clients with social media strategy."
+          />
+          
+          <FeatureItem 
+            icon={
+              <img 
+                src={rocketGif} 
+                alt="Performance" 
+                className="w-20 h-20 md:w-24 md:h-24 object-contain transition-transform duration-500 group-hover:scale-110" 
+              />
+            }
+            title="Boost performance"
+            desc="We deliver email marketing campaigns to your audience."
+          />
+        </div>
 
-            {/* Premium Metric Grid */}
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+          
+          {/* Left Side: Image Composition with Overlap */}
+          <div className="lg:w-1/2 relative">
             <motion.div 
-              {...fadeIn}
-              transition={{ delay: 0.2 }}
-              className="grid grid-cols-2 gap-10 border-l border-slate-100 pl-8"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative z-10"
             >
-              <div>
-                <p className="text-3xl font-bold tracking-tighter text-slate-950">140+</p>
-                <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1">Systems Architected</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold tracking-tighter text-slate-950">99.9%</p>
-                <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-1">SLA Guarantee</p>
-              </div>
+              <img 
+                src={imgLarge} 
+                alt="Team working" 
+                className="rounded-xl shadow-2xl w-[88%] border border-slate-100"
+              />
             </motion.div>
-
-            <motion.button 
-              {...fadeIn}
-              className="group flex items-center gap-4 text-xs font-black uppercase tracking-[0.2em] text-slate-950"
-            >
-              Learn our methodology
-              <div className="h-px w-12 bg-slate-300 group-hover:w-20 group-hover:bg-blue-600 transition-all duration-500" />
-            </motion.button>
-          </div>
-
-          {/* 02. VISUAL COLUMN (7 Cols) */}
-          <div className="lg:col-span-7 relative pt-10 lg:pt-0">
-            {/* The "Workstation" Shadow Effect */}
-            <div className="absolute -inset-4 bg-blue-50/50 rounded-[3rem] blur-2xl -z-10 transform rotate-1" />
             
             <motion.div 
-              initial={{ scale: 0.95, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1 }}
+              initial={{ opacity: 0, scale: 0.8, y: 50 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative z-10 bg-white p-4 rounded-[2.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.12)] border border-slate-100"
+              transition={{ duration: 1, delay: 0.2 }}
+              className="absolute -bottom-8 right-4 z-20 w-[52%]"
             >
-              {/* Internal Window Frame */}
-              <div className="bg-slate-50 rounded-[2rem] overflow-hidden aspect-[4/3] flex items-center justify-center relative">
-                 <Lottie 
-                   animationData={analysisAnimation} 
-                   loop={true} 
-                   className="w-[85%] h-[85%] mix-blend-multiply opacity-80"
-                 />
-                 
-                 {/* Decorative Overlay Code Snippet */}
-                 <div className="absolute top-8 left-8 p-3 bg-white/80 backdrop-blur-md rounded-lg shadow-sm border border-white/50 hidden md:block">
-                    <div className="flex gap-1.5 mb-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
-                    </div>
-                    <div className="h-1 w-16 bg-blue-100 rounded" />
-                 </div>
-              </div>
+              <img 
+                src={imgSmall} 
+                alt="Discussion" 
+                className="rounded-xl shadow-2xl border-[12px] border-white"
+              />
             </motion.div>
+          </div>
 
-            {/* Floating Trust Badge */}
-            <motion.div 
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -right-6 lg:-right-10 z-20 bg-blue-600 text-white p-8 rounded-2xl shadow-2xl shadow-blue-200 hidden lg:block"
+          {/* Right Side: Content */}
+          <div className="lg:w-1/2">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-80">Security Protocol</p>
-              <p className="text-xl font-bold leading-tight tracking-tight italic font-serif">
-                ISO 27001 <br /> Compliant
+              {/* Creative Approach Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#f0f4ff] mb-8">
+                <div className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+                <span className="text-[10px] font-bold text-blue-600 uppercase tracking-[0.15em]">
+                  Creative Approach
+                </span>
+              </div>
+              
+              <h2 className="text-5xl md:text-6xl font-bold text-slate-900 leading-[1.1] tracking-tight mb-8">
+                Powerful agency for <br /> 
+                <span className="text-slate-400">corporate business.</span>
+              </h2>
+              
+              <p className="text-slate-500 text-lg mb-12 leading-relaxed font-light max-w-lg">
+                We strive to develop real-world web solutions that are ideal for small to large projects with bespoke requirements.
               </p>
+
+              {/* CRAFTO STYLE PILL PROGRESS BARS */}
+              <div className="flex flex-col gap-4 max-w-md">
+                
+                {/* Business Growth Pill */}
+                <div className="relative w-full h-9 bg-slate-100 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '98%' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: "circOut" }}
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#ff5e57] to-[#ffaf40] flex items-center justify-between px-6"
+                  >
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap">Business Growth</span>
+                    <span className="text-xs font-bold text-white">98%</span>
+                  </motion.div>
+                </div>
+
+                {/* New Technology Pill */}
+                <div className="relative w-full h-9 bg-slate-100 rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    whileInView={{ width: '85%' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: "circOut" }}
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#2980b9] to-[#6dd5fa] flex items-center justify-between px-6"
+                  >
+                    <span className="text-[10px] font-black text-white uppercase tracking-widest whitespace-nowrap">New Technology</span>
+                    <span className="text-xs font-bold text-white">85%</span>
+                  </motion.div>
+                </div>
+
+              </div>
             </motion.div>
           </div>
 
         </div>
       </div>
-    </AnimatedSection>
-  )
+    </section>
+  );
+}
+
+// Helper Component for Feature Icons
+function FeatureItem({ icon, title, desc }) {
+  return (
+    <div className="flex gap-4 items-center group cursor-default">
+      <div className="flex-shrink-0 flex items-center justify-center min-w-[100px]">
+        {icon}
+      </div>
+      <div className="flex flex-col gap-1">
+        <h4 className="text-[20px] font-bold text-[#232323] leading-tight group-hover:text-blue-600 transition-colors">
+          {title}
+        </h4>
+        <p className="text-[15px] text-slate-500 leading-relaxed max-w-[200px]">
+          {desc}
+        </p>
+      </div>
+    </div>
+  );
 }

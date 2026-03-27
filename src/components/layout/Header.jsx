@@ -1,83 +1,70 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Menu, Phone, X } from 'lucide-react'
+import { Menu, X, ArrowRight } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const links = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
-  { to: '/projects', label: 'Projects' },
+  { to: '/careers', label: 'Careers' }, 
   { to: '/contact', label: 'Contact' },
 ]
 
-const navClass = ({ isActive }) =>
-  `text-sm font-semibold transition ${isActive ? 'text-primary' : 'text-secondary/80 hover:text-primary'}`
-
 export default function Header() {
-  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="bg-secondary px-4 py-2 text-[11px] text-white sm:text-xs">
-        <div className="container-shell flex flex-col gap-1 text-center sm:flex-row sm:justify-between sm:text-left">
-          <span>+91 87660 78570</span>
-          <span>Wakad, Pune, Maharashtra, India</span>
+    <header className="fixed inset-x-0 top-0 z-50 flex justify-center pt-6 px-4">
+      <nav className={`w-full max-w-7xl rounded-full transition-all duration-500 flex items-center justify-between px-8 py-3 ${
+        scrolled 
+          ? 'bg-white/90 border border-white/20 shadow-2xl backdrop-blur-md' 
+          : 'bg-transparent border border-transparent' 
+      }`}>
+        
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-1 group">
+          <span className={`text-2xl font-black tracking-tighter transition-colors duration-500 ${
+            scrolled ? 'text-slate-900' : 'text-white'
+          }`}>
+            Nex<span className="text-indigo-500">Genics</span>
+          </span>
+        </Link>
+
+        {/* Desktop Links */}
+        <div className="hidden lg:flex items-center gap-8">
+          {links.map((link) => (
+            <NavLink 
+              key={link.to} 
+              to={link.to} 
+              className={({ isActive }) => `text-[15px] font-medium transition-all duration-500 ${
+                isActive 
+                  ? 'text-indigo-500' 
+                  : scrolled ? 'text-slate-600' : 'text-white/80 hover:text-white'
+              }`}
+            >
+              {link.label}
+            </NavLink>
+          ))}
         </div>
-      </div>
-      <div className="mx-2 mt-2 rounded-2xl border border-white/50 bg-white/75 backdrop-blur-xl md:mx-4">
-        <div className="container-shell flex h-16 items-center justify-between gap-4">
-          <Link to="/" className="font-display text-xl font-bold tracking-tight text-secondary">
-            NexGenics
-          </Link>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {links.map((link) => (
-              <NavLink key={link.to} to={link.to} className={navClass}>
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
-
-          <div className="hidden items-center gap-3 lg:flex">
-            <a href="tel:+918766078570" className="btn-primary text-xs">
-              Get Free Consultation
-            </a>
-          </div>
-
-          <button
-            type="button"
-            className="inline-flex rounded-xl border border-secondary/15 p-2 text-secondary lg:hidden"
-            onClick={() => setOpen((value) => !value)}
-            aria-label="Toggle menu"
-          >
-            {open ? <X size={18} /> : <Menu size={18} />}
+        {/* Start a Project Button */}
+        <Link to="/contact"> {/* Wrapped in Link to make it functional */}
+          <button className={`px-6 py-2.5 rounded-full text-[13px] font-bold transition-all duration-500 border ${
+            scrolled 
+              ? 'bg-slate-950 text-white border-transparent' 
+              : 'bg-white/10 text-white border-white/30 backdrop-blur-md hover:bg-white hover:text-slate-950'
+          }`}>
+            Start a project →
           </button>
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -14 }}
-            className="mx-2 mt-2 rounded-2xl border border-white/50 bg-white/95 p-4 shadow-soft lg:hidden"
-          >
-            <div className="flex flex-col gap-4">
-              {links.map((link) => (
-                <NavLink key={link.to} to={link.to} className={navClass} onClick={() => setOpen(false)}>
-                  {link.label}
-                </NavLink>
-              ))}
-              <a href="tel:+918766078570" className="btn-primary w-full" onClick={() => setOpen(false)}>
-                <Phone className="mr-2" size={16} />
-                Get Free Consultation
-              </a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </Link>
+      </nav>
     </header>
   )
 }

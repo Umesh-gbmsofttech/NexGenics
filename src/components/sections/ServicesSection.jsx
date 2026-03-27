@@ -1,135 +1,178 @@
+import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-// CORRECTED PATH: From src/pages/ to src/components/ui/
-import AnimatedSection from '../ui/AnimatedSection';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const projects = [
+const services = [
   {
-    title: 'Enterprise ERP System',
-    industry: 'Manufacturing',
-    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200',
-    gridSpan: 'lg:col-span-2',
-    features: ['Workflow Automation', 'Real-time Analytics'],
+    id: '01',
+    category: 'ANALYTICS',
+    title: 'Financial reporting',
+    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=600',
   },
   {
-    title: 'SaaS CRM Platform',
-    industry: 'B2B SaaS',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
-    gridSpan: 'lg:col-span-1',
-    features: ['Pipeline Tools', 'Reporting'],
+    id: '02',
+    category: 'DIGITAL',
+    title: 'Business analysis',
+    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600',
   },
   {
-    title: 'FinTech Digital Wallet',
-    industry: 'Finance',
-    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800',
-    gridSpan: 'lg:col-span-1',
-    features: ['ISO 20022', 'Biometric Auth'],
+    id: '03',
+    category: 'DIGITAL',
+    title: 'Digital marketing',
+    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
+    image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=600',
   },
   {
-    title: 'AI Analytics Dashboard',
-    industry: 'Data Intelligence',
-    image: 'https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=1200',
-    gridSpan: 'lg:col-span-2',
-    features: ['Forecasting', 'Anomaly Detection'],
+    id: '04',
+    category: 'STRATEGY',
+    title: 'Market research',
+    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
+    image: 'https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=600',
   },
   {
-    title: 'E-Commerce Marketplace',
-    industry: 'Retail',
-    image: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800',
-    gridSpan: 'lg:col-span-1',
-    features: ['Global Logistics', 'Multi-Vendor'],
+    id: '05',
+    category: 'CREATIVE',
+    title: 'Brand Identity',
+    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
+    image: 'https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&q=80&w=600',
   },
   {
-    title: 'TeleHealth Ecosystem',
-    industry: 'Medical',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800',
-    gridSpan: 'lg:col-span-1',
-    features: ['HIPAA Secure', 'Live Consultation'],
-  },
-  {
-    title: 'Cloud Security Node',
-    industry: 'Cybersecurity',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
-    gridSpan: 'lg:col-span-1',
-    features: ['Threat Detection', 'Zero Trust'],
-  },
+    id: '06',
+    category: 'SECURITY',
+    title: 'Data Protection',
+    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
+    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600',
+  }
 ];
 
-export default function Projects() {
+export default function Services() {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      // Scrolled by roughly one card width
+      const scrollTo = direction === 'left' 
+        ? scrollLeft - 400 
+        : scrollLeft + 400;
+      
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="pt-8 bg-[#0f172a]"> 
-      <AnimatedSection className="py-20 lg:py-28">
-        <div className="container mx-auto px-6">
-          
-          <div className="max-w-3xl mb-16 space-y-4">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-blue-500" />
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-400">Selected Works</p>
-            </div>
-            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
-              Engineered for <br />
-              <span className="italic font-serif text-slate-400 font-medium">high-growth impact.</span>
+    <section className="py-24 bg-[#edeff5] overflow-hidden">
+      <div className="container mx-auto px-6 md:px-20">
+        
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start mb-16 gap-10">
+          <div className="md:w-1/2">
+            <h2 className="text-5xl md:text-6xl font-bold text-[#232323] leading-[1.1] tracking-tight">
+              Understanding the <br /> 
+              <span className="text-[#232323]">business services.</span>
             </h2>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.8 }}
-                className={`group relative overflow-hidden rounded-[2rem] bg-slate-800 border border-white/5 h-[450px] ${project.gridSpan}`}
+          
+          <div className="md:w-1/3 flex flex-col items-start md:items-end gap-8 self-center md:self-end">
+            <p className="text-[#828282] text-lg leading-relaxed font-light text-left md:text-right">
+              We strive to develop real-world web solutions that are ideal for small to large projects with bespoke your custom project requirements.
+            </p>
+            
+            {/* Navigation Arrows */}
+            <div className="flex gap-2">
+              <button 
+                onClick={() => scroll('left')}
+                aria-label="Scroll Left"
+                className="w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center text-[#232323] hover:bg-[#232323] hover:text-white transition-all duration-300 active:scale-95"
               >
-                <div className="absolute inset-0 z-0">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-transparent to-transparent opacity-90" />
-                </div>
+                <ChevronLeft size={20} />
+              </button>
+              <button 
+                onClick={() => scroll('right')}
+                aria-label="Scroll Right"
+                className="w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center text-[#232323] hover:bg-[#232323] hover:text-white transition-all duration-300 active:scale-95"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          </div>
+        </div>
 
-                <div className="absolute inset-0 z-10 p-8 flex flex-col justify-end">
-                  <div className="space-y-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-400">
-                      {project.industry}
+        {/* Horizontal Scrollable Grid */}
+        <div 
+          ref={scrollRef}
+          className="flex gap-8 overflow-x-auto no-scrollbar pb-10 scroll-smooth snap-x snap-mandatory"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {services.map((service, index) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.8 }}
+              className="min-w-[320px] md:min-w-[380px] snap-start group bg-white rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.04)] hover:shadow-[0_0_80px_rgba(0,0,0,0.08)] transition-all duration-500"
+            >
+              {/* Image Section */}
+              <div className="relative h-60 overflow-hidden">
+                <img 
+                  src={service.image} 
+                  alt={service.title} 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                
+                {/* Category Badge */}
+                <div className="absolute top-6 right-6 px-4 py-1.5 bg-[#232323]/80 backdrop-blur-md rounded-full">
+                  <span className="text-[9px] font-bold text-white tracking-widest">{service.category}</span>
+                </div>
+                
+                {/* ID Overlay (Optional, matches original Crafto detail) */}
+                <div className="absolute top-6 left-6 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                   <span className="text-[10px] font-bold text-[#232323]">{service.id}</span>
+                </div>
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-[#232323]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+
+              {/* Content Section */}
+              <div className="p-10 text-center flex flex-col items-center">
+                <h3 className="text-2xl font-bold text-[#232323] transition-colors duration-300 group-hover:text-blue-600">
+                  {service.title}
+                </h3>
+                
+                {/* Reveal description on hover */}
+                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-in-out">
+                  <div className="overflow-hidden">
+                    <p className="text-[#828282] text-[15px] leading-relaxed pt-5">
+                      {service.desc}
                     </p>
-                    <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">
-                      {project.title}
-                    </h3>
-                    
-                    <div className="flex flex-wrap gap-2 pt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                      {project.features.map(feature => (
-                        <span 
-                          key={feature} 
-                          className="px-3 py-1 bg-white/5 backdrop-blur-md rounded-full text-[9px] text-white/70 border border-white/10 uppercase tracking-widest"
-                        >
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 </div>
 
-                <div className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-500">
-                  <ArrowUpRight size={20} />
+                {/* Read More Link */}
+                <div className="w-full mt-8 pt-6 border-t border-[#f2f2f2] flex justify-center">
+                  <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#232323] group-hover:text-blue-600 transition-all duration-300">
+                    Read more
+                    <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform duration-300" />
+                  </button>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="mt-20 flex justify-center">
-            <button className="flex items-center gap-4 group">
-              <span className="text-xs font-black uppercase tracking-[0.3em] text-white group-hover:text-blue-400 transition-colors">
-                View all case studies
-              </span>
-              <div className="h-px w-12 bg-white/20 group-hover:w-24 group-hover:bg-blue-500 transition-all duration-500" />
-            </button>
-          </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </AnimatedSection>
-    </div>
+      </div>
+
+      <style jsx>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+    </section>
   );
 }

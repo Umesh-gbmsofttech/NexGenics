@@ -7,6 +7,7 @@ import About from './pages/About'
 import Services from './pages/Services'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
+import Careers from './pages/Careers'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -20,17 +21,20 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-surface text-secondary">
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-indigo-500/30">
       <ScrollToTop />
       <Header />
-      <main className="overflow-x-hidden pt-[122px] md:pt-[108px]">
+      <main className="overflow-x-hidden"> 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/careers" element={<Careers />} />
+
         </Routes>
+
       </main>
       <Footer />
     </div>
