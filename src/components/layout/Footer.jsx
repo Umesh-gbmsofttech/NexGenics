@@ -111,6 +111,8 @@ export default function Footer() {
               <li><FooterLink to="/marketing">Marketing</FooterLink></li>
               <li><FooterLink to="/seo">SEO Strategy</FooterLink></li>
               <li><FooterLink to="/cloud">Cloud Solutions</FooterLink></li>
+              <li><FooterLink to="/design">UI UX</FooterLink></li>
+
             </ul>
           </div>
 
