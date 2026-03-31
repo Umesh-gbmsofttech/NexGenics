@@ -1,7 +1,7 @@
 import React from 'react';
 import CareersHero from '../components/sections/CareersHero';
 import OpenPositions from '../components/sections/OpenPositions';
-import HireTeamVector from '../components/sections/HireTeamSection';
+import HireTeamSection from '../components/sections/HireTeamSection';
 
 const Careers = () => {
   return (
