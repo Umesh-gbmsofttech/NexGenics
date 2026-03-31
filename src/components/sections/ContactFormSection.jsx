@@ -1,15 +1,43 @@
-import React from 'react';
-import { User, Mail, MessageSquare, Phone, MapPin, Send } from 'lucide-react';
+import React, { useState } from 'react';
+import { User, Mail, MessageSquare, Send, CheckCircle2, X } from 'lucide-react';
 
 export default function ContactFormSection() {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [loading, setLoading] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyC48PDPZR7Ou96wHeyqnAvNCo3AiqusFDvdgSmR_67dckwA4FjwID6cWybBp60ZFGfEw/exec";
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      // Show the Greeting Popup
+      setShowPopup(true);
+      setFormData({ name: '', email: '', message: '' }); 
+    } catch (err) {
+      console.error("Error!", err.message);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <section className="py-24 bg-[#edeff5]">
+    <section className="py-24 bg-[#edeff5] relative">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="flex flex-col lg:flex-row gap-12 items-start">
           
-          {/* Left Info Box: Matches Crafto Card Style */}
+          {/* Left Info Box */}
           <div className="lg:w-[40%] w-full bg-white p-14 rounded-sm shadow-[0_0_50px_rgba(0,0,0,0.04)] border border-slate-50 relative overflow-hidden">
-            {/* Blue Accent Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 mb-8">
               <MessageSquare size={14} className="text-blue-600" />
               <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600">Let's work together</span>
@@ -20,7 +48,6 @@ export default function ContactFormSection() {
               We're here to help and answer any question you might have.
             </p>
             
-            {/* 2x2 Grid for Contact Details */}
             <div className="grid grid-cols-2 gap-y-10 gap-x-4">
               <div>
                 <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2">Call us directly?</p>
@@ -45,61 +72,100 @@ export default function ContactFormSection() {
           <div className="lg:w-[60%] w-full lg:pl-10">
             <h2 className="text-5xl font-bold text-slate-900 mb-14 tracking-tight">Looking for any help?</h2>
             
-            <form className="space-y-10">
-              {/* Name Input */}
+            <form className="space-y-10" onSubmit={handleSubmit}>
               <div className="relative group">
                 <label className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em] block mb-2">Enter your name*</label>
                 <div className="relative">
                   <input 
+                    required
                     type="text" 
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="What's your good name?" 
-                    className="w-full py-4 bg-transparent border-b border-slate-200 focus:border-slate-400 outline-none transition-all text-slate-600 placeholder:text-slate-300"
+                    className="w-full py-4 bg-transparent border-b border-slate-200 focus:border-slate-400 outline-none transition-all text-slate-600"
                   />
                   <User size={18} className="absolute right-0 top-4 text-slate-400 group-focus-within:text-slate-900 transition-colors" />
                 </div>
               </div>
               
-              {/* Email Input */}
               <div className="relative group">
                 <label className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em] block mb-2">Email address*</label>
                 <div className="relative">
                   <input 
+                    required
                     type="email" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="Enter your email address" 
-                    className="w-full py-4 bg-transparent border-b border-slate-200 focus:border-slate-900 outline-none transition-all text-slate-600 placeholder:text-slate-300"
+                    className="w-full py-4 bg-transparent border-b border-slate-200 focus:border-slate-900 outline-none transition-all text-slate-600"
                   />
                   <Mail size={18} className="absolute right-0 top-4 text-slate-400 group-focus-within:text-slate-900 transition-colors" />
                 </div>
               </div>
 
-              {/* Message Input */}
               <div className="relative group">
                 <label className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em] block mb-2">Your message</label>
                 <div className="relative">
                   <textarea 
                     rows="3" 
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
                     placeholder="Describe about your project" 
-                    className="w-full py-4 bg-transparent border-b border-slate-200 focus:border-slate-900 outline-none transition-all text-slate-600 placeholder:text-slate-300 resize-none"
+                    className="w-full py-4 bg-transparent border-b border-slate-200 focus:border-slate-900 outline-none transition-all text-slate-600 resize-none"
                   />
                   <MessageSquare size={18} className="absolute right-0 top-4 text-slate-400 group-focus-within:text-slate-900 transition-colors" />
                 </div>
               </div>
 
-              {/* Form Footer */}
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pt-4">
                 <p className="text-xs text-slate-400 max-w-[300px] leading-relaxed">
                   We will never collect information about you without your explicit consent.
                 </p>
-                <button className="group flex items-center gap-3 px-10 py-5 bg-[#232736] text-white rounded-md font-bold uppercase text-[10px] tracking-widest hover:bg-blue-600 transition-all duration-300 shadow-xl shadow-slate-200">
-                  Send message
+                <button 
+                  type="submit"
+                  disabled={loading}
+                  className="group flex items-center gap-3 px-10 py-5 bg-[#232736] text-white rounded-md font-bold uppercase text-[10px] tracking-widest hover:bg-blue-600 transition-all duration-300 shadow-xl shadow-slate-200 disabled:opacity-50"
+                >
+                  {loading ? 'Sending...' : 'Send message'}
                   <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </button>
               </div>
             </form>
           </div>
-
         </div>
       </div>
+
+      {/* --- GREETING POPUP MODAL --- */}
+      {showPopup && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-sm transition-opacity">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative animate-in fade-in zoom-in duration-300">
+            <button 
+              onClick={() => setShowPopup(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 transition-colors"
+            >
+              <X size={20} />
+            </button>
+            
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 text-green-600 rounded-full mb-6">
+                <CheckCircle2 size={32} />
+              </div>
+              
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">Thank you for reaching out!</h3>
+              <p className="text-slate-500 mb-8 leading-relaxed">
+                Your message has been received. We value your feedback and our team will get back to you shortly.
+              </p>
+              
+              <button 
+                onClick={() => setShowPopup(false)}
+                className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-blue-700 transition-all shadow-lg shadow-blue-200"
+              >
+                Close Greeting
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
