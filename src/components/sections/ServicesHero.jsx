@@ -16,12 +16,12 @@ const ServicesHero = () => {
         <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-[1px]" />
       </div>
 
-      {/* Hero Content */}
+      
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 text-center px-6 mt-auto mb-12"
+        className="relative z-10 text-center px-6"
       >
         <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
           <span className="text-white/40 text-xs">📣</span>
@@ -35,10 +35,10 @@ const ServicesHero = () => {
         </h1>
       </motion.div>
 
-      {/* Multilayered Animated Wave Section */}
-      <div className="relative w-full h-[150px] z-30 pointer-events-none mt-auto">
+      {/* Multilayered Animated Wave Section - Fixed to the bottom */}
+      <div className="absolute bottom-0 left-0 w-full h-[150px] z-30 pointer-events-none">
         <svg 
-          className="absolute bottom-0 w-full h-full min-h-[100px]" 
+          className="w-full h-full min-h-[100px]" 
           xmlns="http://www.w3.org/2000/svg" 
           viewBox="0 24 150 28" 
           preserveAspectRatio="none"

@@ -1,98 +1,102 @@
 import React from 'react';
 import { motion, useMotionValue, useMotionTemplate, useSpring } from 'framer-motion';
-import { Play, Mail, Megaphone, ArrowRight } from 'lucide-react';
+import { Play, Mail, Megaphone, FileText } from 'lucide-react';
 import heroBg from '../../assets/download.jpg';
+
 export default function Hero() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { damping: 30, stiffness: 100 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
-  const spotlight = useMotionTemplate`radial-gradient(600px circle at ${smoothX}px ${smoothY}px, rgba(255, 255, 255, 0.05), transparent 80%)`;
+  // Optional: If you increase brightness significantly, you might want to subtly adjust the spotlight effect color or opacity.
+  const spotlight = useMotionTemplate`radial-gradient(500px circle at ${smoothX}px ${smoothY}px, rgba(255, 255, 255, 0.09), transparent 80%)`; 
+
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     mouseX.set(e.clientX - rect.left);
     mouseY.set(e.clientY - rect.top);
   };
+
   return (
     <section 
       onMouseMove={handleMouseMove}
-      className="relative w-full min-h-screen flex flex-col overflow-hidden bg-[#050505]"
+      className="relative w-full min-h-screen flex flex-col overflow-hidden bg-[#0a0a0a] font-sans" // Slightly lighter background
     >
       {/* Background Layer */}
       <div className="absolute inset-0 z-0">
-        <img src={heroBg} alt="Background" className="w-full h-full object-cover opacity-60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent" />
+        <img 
+          src={heroBg} 
+          alt="Background" 
+          // --- CHANGE 1: Increase Opacity ---
+          className="w-full h-full object-cover opacity-60" // Changed from 30 to 60 for better visibility
+        />
+        {/* --- CHANGE 2: Soften the Gradient Overlay --- */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/60 to-transparent" /> // Adjusted gradient stops to be less dominant
       </div>
-
-      
 
       {/* Interactive Spotlight */}
       <motion.div className="absolute inset-0 pointer-events-none z-10" style={{ background: spotlight }} />
 
       {/* Main Content */}
-      <div className="container mx-auto px-8 md:px-20 relative z-20 flex-grow flex flex-col justify-center pt-32 pb-12">
+      <div className="container mx-auto px-8 md:px-24 relative z-20 flex-grow flex flex-col justify-center pt-20">
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-[700px]"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-[800px]"
         >
-          {/* Badge */}
-          <div className="flex items-center gap-2 mb-8 group">
-            <Megaphone size={14} className="text-white/100" />
-            <span className="text-[10px] font-extrabold text-white uppercase tracking-[0.3em]">
-              Grow your business with us
+          {/* Small Tagline / Subheading */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-[1px] w-6 bg-blue-500/70"></div> {/* Enhanced contrast for line */}
+            <span className="text-[10px] font-bold text-blue-300 uppercase tracking-[0.4em]"> {/* Brighter blue */}
+              Software Development | UI/UX Design | BPO | KPO | Digital Marketing
             </span>
           </div>
 
-          {/* Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1] tracking-tight mb-8">
-            We Turn <span className="text-white/95">vision</span> <br /> 
-            into reality.
+          {/* Scaled Down Heading */}
+          <h1 className="text-4xl md:text-6xl font-bold text-white leading-[1.2] tracking-tight mb-6">
+            Empowering Businesses with <br />
+            <span className="text-blue-500">Scalable Technology</span> & <br />
+            Intelligent Process Solutions
           </h1>
 
-          <p className="text-lg text-white/40 leading-relaxed mb-12 max-w-md italic">
-            "Transforming your most ambitious business concepts into bespoke, high-performance digital solutions."
+          {/* Refined Description */}
+          <p className="text-base text-white/70 leading-relaxed mb-10 max-w-xl font-light"> {/* Increased readability */}
+            At <span className="text-white font-medium tracking-wide">NEXGENICS SYSTEMS PRIVATE LIMITED</span>, we help businesses transform operations, enhance customer experiences, and accelerate growth through cutting-edge technology.
           </p>
 
-          {/* Buttons */}
-          <div className="flex flex-wrap items-center gap-5">
-            <button className="group flex items-center gap-4 px-10 py-5 bg-gradient-to-r from-[#2b59c3] to-[#d64545] rounded-full text-white font-bold text-sm transition-all hover:brightness-110 active:scale-95 shadow-2xl">
-              Explore NextGenics
-              <div className="bg-white text-black rounded-full p-1 group-hover:scale-110 transition-transform">
-                <Play size={10} fill="currentColor" />
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap items-center gap-4">
+            <button className="group flex items-center gap-3 px-8 py-3.5 bg-blue-600 rounded-full text-white font-semibold text-xs transition-all hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-900/40"> {/* Enhanced shadow visibility */}
+              Get Free Consultation
+              <div className="bg-white/20 rounded-full p-1 group-hover:bg-white/30 transition-colors">
+                <Play size={8} fill="currentColor" />
               </div>
             </button>
             
-            <button className="group flex items-center gap-3 px-10 py-5 border border-white/10 bg-white/5 backdrop-blur-sm hover:border-white/30 rounded-full text-white font-bold text-sm transition-all">
-              Contact us <Mail size={16} className="text-white/40 group-hover:text-white" />
+            <button className="group flex items-center gap-3 px-8 py-3.5 border border-white/20 bg-white/10 backdrop-blur-md hover:border-white/30 rounded-full text-white font-semibold text-xs transition-all"> {/* Adjusted border/background */}
+              Request a Quote <FileText size={14} className="text-white/40 group-hover:text-white transition-colors" /> {/* Brighter icon */}
             </button>
           </div>
         </motion.div>
       </div>
 
-      {/* Multilayered Animated Wave Section */}
-      <div className="relative w-full h-[150px] z-30 pointer-events-none mt-auto">
+      {/* Wave Section */}
+      <div className="relative w-full h-[100px] z-30 pointer-events-none mt-auto">
         <svg 
-          className="absolute bottom-0 w-full h-full min-h-[100px] max-h-[150px]" 
+          className="absolute bottom-0 w-full h-full" 
           xmlns="http://www.w3.org/2000/svg" 
-          xmlnsXlink="http://www.w3.org/1999/xlink"
           viewBox="0 24 150 28" 
           preserveAspectRatio="none"
-          shapeRendering="auto"
         >
           <defs>
             <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
           </defs>
           <g className="parallax">
-            {/* Layer 1: Deepest/Slowest */}
-            <use xlinkHref="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.3)" className="animate-wave-slow" />
-            {/* Layer 2: Medium speed */}
-            <use xlinkHref="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" className="animate-wave-medium" />
-            {/* Layer 3: Fastest/Top */}
-            <use xlinkHref="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.7)" className="animate-wave-fast" />
-            {/* Layer 4: Solid base to blend with content below */}
+            <use xlinkHref="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.1)" className="animate-wave-slow" />
+            <use xlinkHref="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.2)" className="animate-wave-medium" />
+            <use xlinkHref="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" className="animate-wave-fast" />
             <use xlinkHref="#gentle-wave" x="48" y="7" fill="#ffffff" />
           </g>
         </svg>
@@ -102,10 +106,9 @@ export default function Hero() {
         .parallax > use {
           animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
         }
-        .animate-wave-slow { animation-delay: -2s; animation-duration: 13s !important; }
-        .animate-wave-medium { animation-delay: -3s; animation-duration: 10s !important; }
-        .animate-wave-fast { animation-delay: -4s; animation-duration: 7s !important; }
-        
+        .animate-wave-slow { animation-delay: -2s; animation-duration: 15s !important; }
+        .animate-wave-medium { animation-delay: -3s; animation-duration: 12s !important; }
+        .animate-wave-fast { animation-delay: -4s; animation-duration: 9s !important; }
         @keyframes move-forever {
           0% { transform: translate3d(-90px,0,0); }
           100% { transform: translate3d(85px,0,0); }

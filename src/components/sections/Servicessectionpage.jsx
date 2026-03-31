@@ -1,143 +1,205 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ChevronRight, 
-  Palette, 
-  Search, 
-  Globe, 
-  Smartphone, 
-  ShieldCheck, 
-  Fingerprint 
+  Code2, Palette, Headphones, BarChart3, 
+  TrendingUp, ArrowUpRight, Zap, Target,
+  CheckCircle2
 } from 'lucide-react';
 
-const designServices = [
+const services = [
   { 
-    id: 1, 
+    id: 'software-development', 
+    title: 'Software Development', 
+    icon: <Code2 size={22} />, 
+    desc: 'Robust, scalable, and secure software solutions that align with your business objectives.',
+    offers: ['Custom Web Apps', 'Enterprise Software', 'API Integration', 'SaaS'],
+    outcome: 'Faster operations & scalable infrastructure',
+    // High-tech code/workspace
+    media: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop", 
+    accent: "text-blue-600",
+    bg: "bg-blue-600"
+  },
+  { 
+    id: 'ui-ux-design', 
     title: 'UI/UX Design', 
-    icon: <Palette size={18} />, 
-    desc: 'Focus on creating visually appealing, intuitive, and user-friendly digital experiences through bespoke layouts.',
-    image: "https://images.unsplash.com/photo-1581291518062-c9a79415c6b9?auto=format&fit=crop&q=80&w=1000"
+    icon: <Palette size={22} />, 
+    desc: 'Intuitive, user-friendly, and visually engaging digital experiences.',
+    offers: ['User Research', 'Wireframing', 'UI Design', 'Prototyping'],
+    outcome: 'Better engagement & retention',
+    // Creative design workspace
+    media: "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?q=80&w=2070&auto=format&fit=crop", 
+    accent: "text-indigo-600",
+    bg: "bg-indigo-600"
   },
   { 
-    id: 2, 
-    title: 'Web Designing', 
-    icon: <Globe size={18} />, 
-    desc: 'Crafting responsive, high-performance websites that blend modern aesthetics with seamless functionality.',
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000"
+    id: 'bpo-services', 
+    title: 'BPO Services', 
+    icon: <Headphones size={22} />, 
+    desc: 'Reliable outsourcing to streamline operations and reduce overhead.',
+    offers: ['Customer Support', 'Data Entry', 'Back Office', 'Lead Gen'],
+    outcome: 'Reduced costs & improved efficiency',
+    // Professional modern call center/support hub
+    media: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?q=80&w=2071&auto=format&fit=crop",
+    accent: "text-cyan-600",
+    bg: "bg-cyan-600"
   },
   { 
-    id: 3, 
-    title: 'Mobile Development', 
-    icon: <Smartphone size={18} />, 
-    desc: 'Building cross-platform mobile applications that provide native-like experiences on both iOS and Android.',
-    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1000"
+    id: 'kpo-services', 
+    title: 'KPO Services', 
+    icon: <BarChart3 size={22} />, 
+    desc: 'High-value insights and technical expertise for smarter decision making.',
+    offers: ['Data Analytics', 'Market Research', 'Financial Analysis'],
+    outcome: 'Smarter business decisions',
+    // Data analysis / high-end boardroom environment
+    media: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+    accent: "text-violet-600",
+    bg: "bg-violet-600"
   },
   { 
-    id: 4, 
-    title: 'Data Protection', 
-    icon: <ShieldCheck size={18} />, 
-    desc: 'Implementing robust security protocols and encryption to ensure your business and user data remains private.',
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000"
-  },
-  { 
-    id: 5, 
-    title: 'Brand Identity', 
-    icon: <Fingerprint size={18} />, 
-    desc: 'Developing unique visual languages, including logos and typography, that resonate with your target audience.',
-    image: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=1000"
-  },
-  { 
-    id: 6, 
-    title: 'User Research', 
-    icon: <Search size={18} />, 
-    desc: 'Deep-diving into user behavior and market trends to back every design decision with real-world data.',
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1000"
+    id: 'digital-marketing', 
+    title: 'Digital Marketing', 
+    icon: <TrendingUp size={22} />, 
+    desc: 'Performance-driven strategies to grow your digital presence and reach.',
+    offers: ['SEO', 'Social Media', 'PPC', 'Content Marketing'],
+    outcome: 'Increased visibility & revenue',
+    // Modern digital growth/marketing concept
+    media: "https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop",
+    accent: "text-sky-600",
+    bg: "bg-sky-600"
   },
 ];
 
-export default function DesignSolutions() {
-  const [activeId, setActiveId] = useState(1);
-  
-  const activeService = designServices.find(s => s.id === activeId);
+export default function NexGenicsUI() {
+  const { hash } = useLocation();
+  const [activeId, setActiveId] = useState('software-development');
 
-  // Fallback image in case the specific service image fails
-  const fallbackImg = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800";
+  // Logic to catch footer link clicks and update active tab
+  useEffect(() => {
+    if (hash) {
+      const cleanHash = hash.replace('#', '');
+      if (services.find(s => s.id === cleanHash)) {
+        setActiveId(cleanHash);
+      }
+    }
+  }, [hash]);
+
+  const activeService = services.find(s => s.id === activeId);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-[#111422] to-[#1a1f33] overflow-hidden text-white font-sans">
+    <section id="services" className="py-24 bg-[#FAFBFF] text-slate-900 font-sans overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
-          
-          {/* Left Side: Content & Accordions */}
-          <div className="lg:w-1/2 w-full">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-5xl font-extrabold leading-tight tracking-tight mb-6">
-                Our Premium <br />
-                <span className="text-blue-500 animate-pulse">NexGenics Design.</span>
-              </h2>
-              <p className="text-slate-400 text-lg mb-12 max-w-lg leading-relaxed">
-                We combine technical expertise with creative vision to deliver digital products that stand out in the global market.
-              </p>
-            </motion.div>
-
-            <div className="flex flex-col gap-3 max-w-lg">
-              {designServices.map((service, index) => (
-                <AccordionItem 
-                  key={service.id}
-                  service={service}
-                  isActive={service.id === activeId}
-                  setActive={() => setActiveId(service.id)}
-                  index={index}
-                />
-              ))}
+        
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-[0.2em] mb-6">
+              <Zap size={12} fill="currentColor" /> Our Capabilities
             </div>
-          </div>
+            <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9]">
+              Modern Solutions. <br />
+              <span className="text-slate-200">Infinite Scale.</span>
+            </h2>
+          </motion.div>
+          <p className="text-slate-500 max-w-sm text-lg font-medium leading-relaxed border-l-2 border-blue-600 pl-6">
+            We bridge the gap between complex technology and business growth through specialized digital services.
+          </p>
+        </div>
 
-          {/* Right Side: Dynamic Image Composition */}
-          <div className="lg:w-1/2 w-full relative h-[500px] lg:h-[600px] flex items-center justify-center">
-            {/* Background Glow Effect */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-600/10 blur-[120px] z-0" />
-            
-            <div className="relative z-10 w-full h-full flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                <motion.div 
-                  key={activeId}
-                  initial={{ opacity: 0, x: 40, scale: 0.9 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -40, scale: 0.9 }}
-                  transition={{ duration: 0.6, ease: "circOut" }}
-                  className="relative w-full h-full flex items-center justify-center"
-                >
-                  {/* Primary Large Image */}
-                  <div className="relative w-[85%] h-[75%] rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                    <img 
-                      src={activeService.image} 
-                      alt={activeService.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
-                      onError={(e) => { e.target.src = fallbackImg; }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#111422]/60 via-transparent to-transparent" />
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Left Side: Service Navigation */}
+          <div className="lg:col-span-5 space-y-4">
+            {services.map((service) => (
+              <div
+                key={service.id}
+                onMouseEnter={() => setActiveId(service.id)}
+                className={`group relative p-8 rounded-[2rem] transition-all duration-500 cursor-pointer border ${
+                  activeId === service.id 
+                  ? 'bg-white border-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] scale-[1.02]' 
+                  : 'bg-transparent border-transparent hover:bg-white/50'
+                }`}
+              >
+                <div className="flex items-start gap-6">
+                  <div className={`p-4 rounded-2xl transition-all duration-500 ${
+                    activeId === service.id ? `${service.bg} text-white shadow-xl rotate-3` : 'bg-white text-slate-400 shadow-sm'
+                  }`}>
+                    {service.icon}
                   </div>
 
-                  {/* Secondary Small Floating Image */}
-                  <motion.div 
-                    initial={{ y: 60, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3, duration: 0.7 }}
-                    className="absolute bottom-10 right-4 w-[45%] h-[35%] rounded-[2rem] overflow-hidden border-[6px] border-[#1a1f33] shadow-2xl z-20"
-                  >
-                    <img 
-                      src={activeService.image} 
-                      alt="Detail zoom" 
-                      className="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-500" 
-                      onError={(e) => { e.target.src = fallbackImg; }}
-                    />
-                  </motion.div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className={`text-xl font-black tracking-tight transition-colors ${activeId === service.id ? 'text-slate-900' : 'text-slate-400'}`}>
+                        {service.title}
+                      </h4>
+                      <ArrowUpRight className={`transition-all duration-500 ${activeId === service.id ? 'opacity-100 translate-x-0 text-blue-600' : 'opacity-0 -translate-x-4'}`} size={20} />
+                    </div>
+                    
+                    <AnimatePresence>
+                      {activeId === service.id && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                        >
+                          <p className="text-sm text-slate-500 mb-4 leading-relaxed font-medium">
+                            {service.desc}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Right Side: Dynamic Visual Display */}
+          <div className="lg:col-span-7 h-[600px] lg:h-[750px] sticky top-12">
+            <div className="relative w-full h-full rounded-[3.5rem] overflow-hidden bg-slate-900 shadow-2xl border border-slate-100">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeId}
+                  initial={{ opacity: 0, scale: 1.1 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, filter: 'blur(8px)' }}
+                  transition={{ duration: 0.6 }}
+                  className="absolute inset-0"
+                >
+                  <img 
+                    src={activeService.media} 
+                    alt={activeService.title} 
+                    className="w-full h-full object-cover opacity-80 transition-transform duration-700 hover:scale-110" 
+                  />
+                  
+                  {/* Overlay Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/20 to-transparent z-10" />
+                  
+                  {/* Content Over the Image */}
+                  <div className="absolute inset-0 p-12 flex flex-col justify-between z-20">
+                    <div className="flex flex-wrap gap-3 justify-end">
+                      {activeService.offers.map((offer, i) => (
+                        <div key={offer} className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-xl flex items-center gap-2">
+                          <CheckCircle2 size={12} className="text-white" />
+                          <span className="text-white text-[10px] font-bold uppercase tracking-widest">{offer}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <motion.div 
+                      initial={{ y: 40, opacity: 0 }} 
+                      animate={{ y: 0, opacity: 1 }} 
+                      className="bg-white p-10 rounded-[2.5rem] shadow-2xl"
+                    >
+                      <div className="flex items-center gap-3 mb-2">
+                        <Target size={16} className={activeService.accent} />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Guaranteed Result</span>
+                      </div>
+                      <h3 className="text-3xl font-black text-slate-900 tracking-tighter">
+                        {activeService.outcome}
+                      </h3>
+                    </motion.div>
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -146,57 +208,5 @@ export default function DesignSolutions() {
         </div>
       </div>
     </section>
-  );
-}
-
-function AccordionItem({ service, isActive, setActive, index }) {
-  return (
-    <motion.div 
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08 }}
-      className={`rounded-xl border transition-all duration-500 cursor-pointer ${
-        isActive 
-        ? 'bg-[#1e233d] border-blue-600/50 shadow-lg translate-x-3' 
-        : 'border-white/5 hover:border-white/10'
-      }`}
-      onClick={setActive}
-    >
-      <div className="p-5 flex items-center justify-between group">
-        <div className="flex items-center gap-4">
-          <div className={`w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-500 ${
-            isActive ? 'bg-blue-600 text-white rotate-[360deg]' : 'bg-white/5 text-slate-400'
-          }`}>
-            {service.icon}
-          </div>
-          <h4 className={`text-lg font-bold transition-colors ${isActive ? 'text-white' : 'text-slate-400'}`}>
-            {service.title}
-          </h4>
-        </div>
-        <ChevronRight 
-          size={18} 
-          className={`transition-transform duration-500 ${isActive ? 'rotate-90 text-blue-400' : 'text-slate-700'}`} 
-        />
-      </div>
-
-      <AnimatePresence initial={false}>
-        {isActive && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="px-5 pb-5 pt-0 text-slate-400 text-sm leading-relaxed">
-              <p className="border-l-2 border-blue-500/50 pl-4 py-1">
-                {service.desc}
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
   );
 }
