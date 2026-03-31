@@ -2,10 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const stats = [
-  { label: "Days of experience", value: "3053+" },
-  { label: "Valuable happy clients", value: "1750+" },
-  { label: "Presence in countries", value: "86+" },
-  { label: "Worldwide projects", value: "856+" },
+  { label: " Projects Delivered", value: "50+" },
+  { label: "Valuable happy clients", value: "30+" },
+  { label: "Professionals", value: "20+" },
+  { label: "Years Experience", value: "3+" },
 ];
 
 export default function StatsSection() {

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const timelineEvents = [
-  { year: '2011', title: 'Strategic Foundation', desc: 'Founded to revolutionize ERP for industrial leaders.' },
-  { year: '2016', title: 'Cloud Excellence', desc: 'Scaled to full-stack cloud architecture for Fortune 500s.' },
-  { year: '2021', title: 'Global Innovation', desc: 'Launched R&D labs for AI and mobility solutions.' },
-  { year: '2026', title: 'Digital Leadership', desc: 'Global leader in digital transformation programs.' }
+  { year: '2022', title: 'Strategic Foundation', desc: 'Founded to revolutionize ERP for industrial leaders.' },
+  { year: '2023', title: 'Cloud Excellence', desc: 'Scaled to full-stack cloud architecture for Fortune 500s.' },
+  { year: '2024', title: 'Global Innovation', desc: 'Launched R&D labs for AI and mobility solutions.' },
+  { year: '2025', title: 'Digital Leadership', desc: 'Global leader in digital transformation programs.' }
 ];
 
 export default function JourneyTimeline() {

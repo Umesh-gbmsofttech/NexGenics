@@ -5,46 +5,40 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 const services = [
   {
     id: '01',
-    category: 'ANALYTICS',
-    title: 'Financial reporting',
-    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=600',
+    category: 'Development',
+    title: 'Software Development',
+    desc: 'Custom Web Applications, Enterprise Software, API Integration, CRM/ERP Systems, SaaS Development.',
+    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop',
   },
   {
     id: '02',
-    category: 'DIGITAL',
-    title: 'Business analysis',
-    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=600',
+    category: 'Designing',
+    title: 'UI/UX Design',
+    desc: 'Research, Wireframing, UI Design, Prototyping.',
+    // New verified high-stability link
+    image: 'https://images.unsplash.com/photo-1545235617-7a424c1a60cc?q=80&w=2000&auto=format&fit=crop',
   },
   {
     id: '03',
     category: 'DIGITAL',
-    title: 'Digital marketing',
-    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
-    image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=600',
+    title: 'BPO Services',
+    desc: 'Customer Support, Data Entry, Back Office, Lead Generation.',
+    image: 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?q=80&w=2071&auto=format&fit=crop',
   },
   {
     id: '04',
-    category: 'STRATEGY',
-    title: 'Market research',
-    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
-    image: 'https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=600',
+    category: 'DIGITAL',
+    title: 'KPO Services',
+    desc: 'Data Analytics, Market Research, Financial Analysis.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
   },
   {
     id: '05',
-    category: 'CREATIVE',
-    title: 'Brand Identity',
-    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
-    image: 'https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&q=80&w=600',
+    category: 'STRATEGY',
+    title: 'Digital Marketing',
+    desc: 'SEO, Social Media, PPC, Content Marketing.',
+    image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop',
   },
-  {
-    id: '06',
-    category: 'SECURITY',
-    title: 'Data Protection',
-    desc: 'We strive to develop real-world web solutions that are ideal for small to large projects.',
-    image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600',
-  }
 ];
 
 export default function Services() {

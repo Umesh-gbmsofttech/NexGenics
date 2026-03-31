@@ -140,8 +140,8 @@ export default function NexGenicsProcess() {
               ))}
             </svg>
             
-            {/* Center Label */}
-            <div className="relative w-56 h-56 rounded-full bg-white flex flex-col items-center justify-center p-8 text-center shadow-[0_0_50px_rgba(0,0,0,0.05)] border border-slate-100 z-0">
+            {/* Center Label - FIXED Z-INDEX AND POSITIONING */}
+            <div className="relative w-56 h-56 rounded-full bg-white flex flex-col items-center justify-center p-8 text-center shadow-[0_0_50px_rgba(0,0,0,0.05)] border border-slate-100 z-30 translate-x-[130px]">
                <motion.div 
                  animate={{ scale: hoveredStep !== null ? 1.1 : 1 }}
                  className="text-slate-900 font-black text-2xl tracking-tighter"
@@ -149,6 +149,7 @@ export default function NexGenicsProcess() {
                  NexGenics <br />
                  <span className="text-blue-600">Core</span>
                </motion.div>
+               {/* Rounded design ring */}
                <div className="absolute inset-[-15px] rounded-full border border-dashed border-slate-200 animate-[spin_20s_linear_infinite]" />
             </div>
           </div>

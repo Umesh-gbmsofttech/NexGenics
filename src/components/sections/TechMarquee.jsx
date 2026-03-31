@@ -2,8 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const techs = [
-  "React", "Next.js", "Tailwind CSS", "Node.js", 
-  "TypeScript", "MongoDB", "Framer Motion", "Vite", "MySQL", "Java", "Spring Boot"
+  "Finance & Banking", "Healthcare", "E-commerce", "Startups & SMEs", 
+  "Technology & SaaS"
 ];
 
 export default function TechMarquee() {

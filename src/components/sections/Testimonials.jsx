@@ -4,26 +4,20 @@ import { Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    name: "Amit Sharma",
+    name: "Rahul Mehta",
     role: "Founder, TechStart",
-    feedback: "NexGenics transformed our complex product ideas into a reality. Their engineering standards are world-class and perfectly aligned with our vision.",
-    initials: "AS",
+    feedback: "NEXGENICS helped us streamline operations and reduce costs significantly. .",
+    initials: "RM",
     color: "from-blue-600 to-indigo-600"
   },
   {
-    name: "Sarah Jenkins",
+    name: "Priya Sharma",
     role: "CEO, Nexa",
-    feedback: "Incredibly talented and understands modern startup needs. They are a resilient digital partner that delivers results under pressure.",
-    initials: "SJ",
+    feedback: "Their solutions transformed our workflow.",
+    initials: "PS",
     color: "from-slate-800 to-slate-950"
   },
-  {
-    name: "Priya Varma",
-    role: "CTO, GlobalScale",
-    feedback: "Their data systems integration has been a game-changer for our global infrastructure and our team's delivery velocity.",
-    initials: "PV",
-    color: "from-blue-500 to-cyan-500"
-  }
+  
 ];
 
 const AUTO_PLAY_DURATION = 4000; // 6 seconds per slide

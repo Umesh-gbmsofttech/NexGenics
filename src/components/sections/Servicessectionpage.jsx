@@ -28,7 +28,7 @@ const services = [
     offers: ['User Research', 'Wireframing', 'UI Design', 'Prototyping'],
     outcome: 'Better engagement & retention',
     // Creative design workspace
-    media: "https://images.unsplash.com/photo-1586717791821-3f44a563dc4c?q=80&w=2070&auto=format&fit=crop", 
+    media: "https://images.unsplash.com/photo-1545235617-7a424c1a60cc?q=80&w=2000&auto=format&fit=crop", 
     accent: "text-indigo-600",
     bg: "bg-indigo-600"
   },
@@ -64,7 +64,7 @@ const services = [
     offers: ['SEO', 'Social Media', 'PPC', 'Content Marketing'],
     outcome: 'Increased visibility & revenue',
     // Modern digital growth/marketing concept
-    media: "https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=2070&auto=format&fit=crop",
+    media: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop",
     accent: "text-sky-600",
     bg: "bg-sky-600"
   },

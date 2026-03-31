@@ -86,7 +86,6 @@ export default function Footer() {
                 <FooterLink to="/services">Our services</FooterLink>
                 <span className="bg-[#1e5ace] text-[8px] font-black text-white px-1.5 py-0.5 rounded-sm animate-pulse">HOT</span>
               </li>
-              <li><FooterLink to="/projects">Portfolio</FooterLink></li>
               <li><FooterLink to="/contact">Contact us</FooterLink></li>
             </ul>
           </div>

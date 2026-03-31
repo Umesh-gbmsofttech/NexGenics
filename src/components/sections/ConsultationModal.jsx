@@ -1,21 +1,29 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckSquare, Calendar, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate
 
-// This import uses the correct relative path for your project structure
 import bulbGif from '../../assets/bulb-animation.gif';
 
-export default function ConsultationModal({ isOpen, onClose }) {  
+export default function ConsultationModal({ isOpen, onClose }) { 
+  const navigate = useNavigate(); // 2. Initialize navigate
+
   useEffect(() => {
     if (isOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
   }, [isOpen]);
 
+  // 3. Create a handle function
+  const handleTalkNow = () => {
+    onClose(); // Close the modal first
+    navigate('/contact'); // Redirect to your contact route
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop with blur */}
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -40,10 +48,9 @@ export default function ConsultationModal({ isOpen, onClose }) {
                 <X size={18} className="text-slate-400" />
               </button>
 
-              {/* GIF Animation Section */}
+              {/* GIF Animation */}
               <div className="flex justify-center mb-6">
                 <div className="relative">
-                  {/* CHANGED: src now uses the {bulbGif} variable from your import */}
                   <img 
                     src={bulbGif} 
                     alt="Bulb Animation" 
@@ -85,7 +92,11 @@ export default function ConsultationModal({ isOpen, onClose }) {
 
               {/* Action Buttons */}
               <div className="space-y-3">
-                <button className="w-full py-4 px-6 bg-gradient-to-r from-[#1e5ace] to-[#e64d44] text-white rounded-full font-bold text-base flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-[0.97]">
+                {/* 4. Added onClick handler here */}
+                <button 
+                  onClick={handleTalkNow}
+                  className="w-full py-4 px-6 bg-gradient-to-r from-[#1e5ace] to-[#e64d44] text-white rounded-full font-bold text-base flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-[0.97]"
+                >
                   Let's talk now 
                   <span className="text-xl">→</span>
                 </button>
