@@ -1,7 +1,7 @@
 import React from 'react';
 import CareersHero from '../components/sections/CareersHero';
 import OpenPositions from '../components/sections/OpenPositions';
-import HireTeamVector from '../components/sections/HireTeamVector';
+import HireTeamVector from '../components/sections/HireTeamSection';
 
 const Careers = () => {
   return (
@@ -10,7 +10,7 @@ const Careers = () => {
       <CareersHero />
       
       {/* 2. HIRE TEAM VECTOR (Already has -mt to join hero) */}
-      <HireTeamVector />
+      <HireTeamSection />
 
       {/* 3. OPEN POSITIONS - Remove the wrapping div py-10 */}
       <OpenPositions />
