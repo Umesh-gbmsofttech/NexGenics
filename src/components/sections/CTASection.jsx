@@ -1,7 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageCircle, Sparkles } from 'lucide-react';
 import AnimatedSection from '../ui/AnimatedSection';
+import {
+  CONTACT_PHONE_HREF,
+  EXTERNAL_PHONE_LINK_PROPS,
+} from '../../data/contact';
 
 // Replace with your actual background image path
 import bgImage from '../../assets/CTASection.jpg'; 
@@ -72,16 +77,17 @@ export default function CTASection() {
             viewport={{ once: true }}
             className="flex flex-wrap justify-center items-center gap-8"
           >
-            <a 
-              href="mailto:gbmsofttech@gmail.com"
+            <Link
+              to="/contact"
               className="group relative flex items-center gap-4 px-12 py-6 bg-white rounded-full text-slate-950 font-black text-sm uppercase tracking-widest hover:bg-blue-50 transition-all shadow-[0_20px_50px_rgba(59,130,246,0.2)]"
             >
               Start a Project
               <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" />
-            </a>
+            </Link>
 
             <a 
-              href="tel:+918766078570"
+              href={CONTACT_PHONE_HREF}
+              { ...EXTERNAL_PHONE_LINK_PROPS }
               className="group flex items-center gap-3 text-white font-bold text-lg hover:text-blue-400 transition-colors py-4 px-2"
             >
               <div className="w-12 h-12 flex items-center justify-center rounded-full border border-white/20 group-hover:border-blue-400/50 group-hover:bg-blue-400/10 transition-all">

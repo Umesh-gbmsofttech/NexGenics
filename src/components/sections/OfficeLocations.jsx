@@ -1,8 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MapPin, ExternalLink } from 'lucide-react';
-// Import your background if needed, or use a high-quality placeholder
-import officeImg from '../../assets/contactbg.jpg'; 
+import {
+  CONTACT_PHONE,
+  CONTACT_PHONE_HREF,
+  EXTERNAL_PHONE_LINK_PROPS,
+} from '../../data/contact';
+
+const GOOGLE_MAPS_URL = 'https://share.google/RKny5NxiMcvYVkEFo';
 
 export default function OfficeLocations() {
   return (
@@ -28,10 +33,14 @@ export default function OfficeLocations() {
               designed to foster innovation and seamless collaboration for our global partners.
             </p>
 
-            <button className="group relative flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-blue-700 to-red-500 rounded-full text-white font-bold overflow-hidden transition-all hover:shadow-xl hover:scale-105">
+            <a
+              href={ CONTACT_PHONE_HREF }
+              { ...EXTERNAL_PHONE_LINK_PROPS }
+              className="group relative inline-flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-blue-700 to-red-500 rounded-full text-white font-bold overflow-hidden transition-all hover:shadow-xl hover:scale-105"
+            >
               <Phone size={18} className="group-hover:rotate-12 transition-transform" />
               <span>Schedule a call</span>
-            </button>
+            </a>
           </div>
 
           {/* Right Side: Single Large Location Card */}
@@ -77,12 +86,18 @@ export default function OfficeLocations() {
                     <p className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Contact directly</p>
                     <div className="flex items-center gap-2 text-slate-900 font-bold text-lg">
                       <Phone size={16} className="text-blue-600" />
-                      <span>+91 9876543210</span>
+                      <a
+                        href={ CONTACT_PHONE_HREF }
+                        { ...EXTERNAL_PHONE_LINK_PROPS }
+                        className="hover:text-blue-600 transition-colors"
+                      >
+                        { CONTACT_PHONE }
+                      </a>
                     </div>
                   </div>
 
                   <a 
-                    href="https://maps.google.com" 
+                    href={ GOOGLE_MAPS_URL }
                     target="_blank" 
                     rel="noreferrer"
                     className="flex items-center gap-2 text-sm font-bold text-blue-600 group"

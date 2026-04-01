@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, MapPin, Briefcase, Zap } from 'lucide-react';
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from '../../data/contact';
 
 const jobs = [
   { title: "Senior React Developer", type: "Full-Time", location: "Pune / Remote", vacancies: 2, tags: ["React", "Node.js"] },
@@ -89,8 +90,8 @@ export default function OpenPositions() {
         <div className="mt-24 py-12 border-t border-slate-100 text-center relative">
           <p className="text-slate-400 font-medium">
             Don't see your perfect role? <br className="md:hidden" />
-            <a href="mailto:careers@nexgenics.com" className="text-slate-900 font-bold border-b-2 border-blue-600 pb-0.5 hover:text-blue-600 transition-colors mx-2">
-              Send your CV to careers@nexgenics.com
+            <a href={ CONTACT_EMAIL_HREF } className="text-slate-900 font-bold border-b-2 border-blue-600 pb-0.5 hover:text-blue-600 transition-colors mx-2">
+              Send your CV to { CONTACT_EMAIL }
             </a>
           </p>
           <div className="mt-8 flex justify-center gap-8 opacity-20 grayscale">

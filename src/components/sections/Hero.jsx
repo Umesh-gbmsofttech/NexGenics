@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useMotionValue, useMotionTemplate, useSpring } from 'framer-motion';
-import { Play, Mail, Megaphone, FileText } from 'lucide-react';
+import { Play, FileText } from 'lucide-react';
 import heroBg from '../../assets/download.jpg';
 
 export default function Hero() {
@@ -68,16 +69,22 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap items-center gap-4">
-            <button className="group flex items-center gap-3 px-8 py-3.5 bg-blue-600 rounded-full text-white font-semibold text-xs transition-all hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-900/40"> {/* Enhanced shadow visibility */}
+            <Link
+              to="/contact"
+              className="group flex items-center gap-3 px-8 py-3.5 bg-blue-600 rounded-full text-white font-semibold text-xs transition-all hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-900/40"
+            >
               Get Free Consultation
               <div className="bg-white/20 rounded-full p-1 group-hover:bg-white/30 transition-colors">
                 <Play size={8} fill="currentColor" />
               </div>
-            </button>
+            </Link>
             
-            <button className="group flex items-center gap-3 px-8 py-3.5 border border-white/20 bg-white/10 backdrop-blur-md hover:border-white/30 rounded-full text-white font-semibold text-xs transition-all"> {/* Adjusted border/background */}
-              Request a Quote <FileText size={14} className="text-white/40 group-hover:text-white transition-colors" /> {/* Brighter icon */}
-            </button>
+            <Link
+              to="/contact"
+              className="group flex items-center gap-3 px-8 py-3.5 border border-white/20 bg-white/10 backdrop-blur-md hover:border-white/30 rounded-full text-white font-semibold text-xs transition-all"
+            >
+              Request a Quote <FileText size={14} className="text-white/40 group-hover:text-white transition-colors" />
+            </Link>
           </div>
         </motion.div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -6,88 +6,45 @@ import {
   TrendingUp, ArrowUpRight, Zap, Target,
   CheckCircle2
 } from 'lucide-react';
-
-const services = [
-  { 
-    id: 'software-development', 
-    title: 'Software Development', 
-    icon: <Code2 size={22} />, 
-    desc: 'Robust, scalable, and secure software solutions that align with your business objectives.',
-    offers: ['Custom Web Apps', 'Enterprise Software', 'API Integration', 'SaaS'],
-    outcome: 'Faster operations & scalable infrastructure',
-    // High-tech code/workspace
-    media: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop", 
-    accent: "text-blue-600",
-    bg: "bg-blue-600"
-  },
-  { 
-    id: 'ui-ux-design', 
-    title: 'UI/UX Design', 
-    icon: <Palette size={22} />, 
-    desc: 'Intuitive, user-friendly, and visually engaging digital experiences.',
-    offers: ['User Research', 'Wireframing', 'UI Design', 'Prototyping'],
-    outcome: 'Better engagement & retention',
-    // Creative design workspace
-    media: "https://images.unsplash.com/photo-1545235617-7a424c1a60cc?q=80&w=2000&auto=format&fit=crop", 
-    accent: "text-indigo-600",
-    bg: "bg-indigo-600"
-  },
-  { 
-    id: 'bpo-services', 
-    title: 'BPO Services', 
-    icon: <Headphones size={22} />, 
-    desc: 'Reliable outsourcing to streamline operations and reduce overhead.',
-    offers: ['Customer Support', 'Data Entry', 'Back Office', 'Lead Gen'],
-    outcome: 'Reduced costs & improved efficiency',
-    // Professional modern call center/support hub
-    media: "https://images.unsplash.com/photo-1549923746-c502d488b3ea?q=80&w=2071&auto=format&fit=crop",
-    accent: "text-cyan-600",
-    bg: "bg-cyan-600"
-  },
-  { 
-    id: 'kpo-services', 
-    title: 'KPO Services', 
-    icon: <BarChart3 size={22} />, 
-    desc: 'High-value insights and technical expertise for smarter decision making.',
-    offers: ['Data Analytics', 'Market Research', 'Financial Analysis'],
-    outcome: 'Smarter business decisions',
-    // Data analysis / high-end boardroom environment
-    media: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-    accent: "text-violet-600",
-    bg: "bg-violet-600"
-  },
-  { 
-    id: 'digital-marketing', 
-    title: 'Digital Marketing', 
-    icon: <TrendingUp size={22} />, 
-    desc: 'Performance-driven strategies to grow your digital presence and reach.',
-    offers: ['SEO', 'Social Media', 'PPC', 'Content Marketing'],
-    outcome: 'Increased visibility & revenue',
-    // Modern digital growth/marketing concept
-    media: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop",
-    accent: "text-sky-600",
-    bg: "bg-sky-600"
-  },
-];
+import { expertiseItems } from '../../data/expertise';
 
 export default function NexGenicsUI() {
   const { hash } = useLocation();
   const [activeId, setActiveId] = useState('software-development');
+  const sectionRef = useRef(null);
 
-  // Logic to catch footer link clicks and update active tab
+  const services = expertiseItems.map((item) => {
+    const iconMap = {
+      'software-development': <Code2 size={22} />,
+      'ui-ux-design': <Palette size={22} />,
+      'bpo-services': <Headphones size={22} />,
+      'kpo-services': <BarChart3 size={22} />,
+      'digital-marketing': <TrendingUp size={22} />,
+    };
+
+    return {
+      ...item,
+      desc: item.detail,
+      icon: iconMap[item.id],
+    };
+  });
+
   useEffect(() => {
     if (hash) {
       const cleanHash = hash.replace('#', '');
-      if (services.find(s => s.id === cleanHash)) {
+      if (services.find((service) => service.id === cleanHash)) {
         setActiveId(cleanHash);
+        requestAnimationFrame(() => {
+          sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
       }
     }
   }, [hash]);
 
-  const activeService = services.find(s => s.id === activeId);
+  const activeService = services.find((service) => service.id === activeId);
 
   return (
-    <section id="services" className="py-24 bg-[#FAFBFF] text-slate-900 font-sans overflow-hidden">
+    <section ref={sectionRef} id="services" className="py-24 bg-[#FAFBFF] text-slate-900 font-sans overflow-hidden">
       <div className="container mx-auto px-6 max-w-7xl">
         
         {/* Header Section */}

@@ -1,48 +1,12 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const services = [
-  {
-    id: '01',
-    category: 'Development',
-    title: 'Software Development',
-    desc: 'Custom Web Applications, Enterprise Software, API Integration, CRM/ERP Systems, SaaS Development.',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop',
-  },
-  {
-    id: '02',
-    category: 'Designing',
-    title: 'UI/UX Design',
-    desc: 'Research, Wireframing, UI Design, Prototyping.',
-    // New verified high-stability link
-    image: 'https://images.unsplash.com/photo-1545235617-7a424c1a60cc?q=80&w=2000&auto=format&fit=crop',
-  },
-  {
-    id: '03',
-    category: 'DIGITAL',
-    title: 'BPO Services',
-    desc: 'Customer Support, Data Entry, Back Office, Lead Generation.',
-    image: 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?q=80&w=2071&auto=format&fit=crop',
-  },
-  {
-    id: '04',
-    category: 'DIGITAL',
-    title: 'KPO Services',
-    desc: 'Data Analytics, Market Research, Financial Analysis.',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop',
-  },
-  {
-    id: '05',
-    category: 'STRATEGY',
-    title: 'Digital Marketing',
-    desc: 'SEO, Social Media, PPC, Content Marketing.',
-    image: 'https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop',
-  },
-];
+import { expertiseItems } from '../../data/expertise';
 
 export default function Services() {
   const scrollRef = useRef(null);
+  const navigate = useNavigate();
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -56,8 +20,17 @@ export default function Services() {
     }
   };
 
+  const services = expertiseItems.map((item, index) => ({
+    id: String(index + 1).padStart(2, '0'),
+    category: item.category.toUpperCase(),
+    title: item.title,
+    desc: item.desc,
+    image: item.image,
+    anchorId: item.id,
+  }));
+
   return (
-    <section className="py-24 bg-[#edeff5] overflow-hidden">
+    <section id="expertise" className="py-24 bg-[#edeff5] overflow-hidden">
       <div className="container mx-auto px-6 md:px-20">
         
         {/* Header Section */}
@@ -147,10 +120,13 @@ export default function Services() {
 
                 {/* Read More Link */}
                 <div className="w-full mt-8 pt-6 border-t border-[#f2f2f2] flex justify-center">
-                  <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#232323] group-hover:text-blue-600 transition-all duration-300">
-                    Read more
-                    <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform duration-300" />
-                  </button>
+                    <button
+                      onClick={() => navigate(`/services#${service.anchorId}`)}
+                      className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-[#232323] group-hover:text-blue-600 transition-all duration-300"
+                    >
+                      Read more
+                      <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform duration-300" />
+                    </button>
                 </div>
               </div>
             </motion.div>
@@ -158,7 +134,7 @@ export default function Services() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }
