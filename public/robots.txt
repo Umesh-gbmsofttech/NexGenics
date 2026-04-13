@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: http://nexgenics.in/sitemap.xml
+Sitemap: https://nexgenics.in/sitemap.xml
